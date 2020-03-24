@@ -84,6 +84,12 @@ pub struct io_uring {
     pub ring_fd: libc::c_int,
 }
 
+impl std::os::unix::io::AsRawFd for io_uring {
+    fn as_raw_fd(&self) -> std::os::unix::io::RawFd {
+        self.ring_fd as std::os::unix::io::RawFd
+    }
+}
+
 #[repr(C)]
 pub struct io_uring_sq {
     pub khead: *mut libc::c_uint,
